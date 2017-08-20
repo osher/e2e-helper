@@ -2,6 +2,10 @@
 
 A mocha helper to manage CLI processes such as web-servers, socket-servers, queue consumers, or any services that should be launched as part of a suite setup, and killed as a part of a suite cleanup.
 
+## Badges
+[![Build Status](https://secure.travis-ci.org/osher/mocha-e2e.png?branch=master)](http://travis-ci.org/osher/mocha-e2e)
+ - Tested on latests node versions  of 5,6,7,8
+
 # Features list:
 1. manages for you the setup and teardown hooks
 2. manages tunneling the stdout and stderr outputs to a log file
