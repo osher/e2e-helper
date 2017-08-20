@@ -1,0 +1,32 @@
+{
+  "name": "mocha-e2e",
+  "version": "0.6.0",
+  "description": "end-to-end test helper, with facilitators for mocha",
+  "main": "lib",
+  "scripts": {
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
+    "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 85 --branches 75"
+  },
+  "repository": {
+    "type": "hg",
+    "url": "http://git.mobimate.local/worldmate/wm-e2e-util"
+  },
+  "keywords": [
+    "test-automation",
+    "service",
+    "utilities",
+    "end-to-end"
+  ],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "istanbul": "*",
+    "mocha": "~2.3.4",
+    "mocha-ui-exports": "^1.1.0",
+    "should": "^9.0.0"
+  },
+  "publishConfig": {
+    "registry": "http://wm-npm.mobimate.com/"
+  }
+}

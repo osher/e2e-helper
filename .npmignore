@@ -1,0 +1,9 @@
+test
+coverage
+.gitignore
+.npmignore
+.hgignore
+.settings
+*.njsproj
+*.log
+*.tmp
