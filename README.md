@@ -14,7 +14,7 @@ A mocha helper to manage CLI processes such as web-servers, socket-servers, queu
 4. allows you to run your tests against an already running server - i.e - skip the server launch/kill and log-file management by providing env variable SUT (i.e acronym of System Under Test)
    When provided - the SUT is expected to be the base URL against which tests should be run.
    . supports a coverage mode (currently with istanbul)
-5. allows running in code-coverage mode via `istanbul` by providing env variable COVER as truthful value, and COVER_IGNORE as list of globs to exclude.
+5. allows running in code-coverage mode via `istanbul` by providing env variable COVER as truthful value
 6. wide set of configurable options to customize `title`, `log-path`, `cwd`, `args`, and more.
 7. facilitation wrappers for mocha tdd/bdd UI and [mocha-ui-exports][1]
 
@@ -96,7 +96,7 @@ The lower level mechanism accepts the following options:
  - *term_code* - string, optional, the termination message to send to the child, default: SIGTERM
  - *term_ipc* - optional, any value provided will be used to child.send(term_ipc) before escalating to child.kill(term_code)
  - *term_timeout* - optional, number, timeout in miliseconds before escalations( ipc->term->kill)
-
+ - *coverIgnore* - optional, array of glob-pattern strings to exclude from cover tool, meaningful only for istanbul COVER mode
 on top of that list, the higher facilitators accept as well
  - *title* - string - the root level test title*
  - *suites* - array of strings - paths relative to `process.cwd()` (or absolute) of suites to run between the hooks.

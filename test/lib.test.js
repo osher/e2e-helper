@@ -121,6 +121,13 @@ module.exports =
                 }
               , m: 'options.term_code, when provided - must be a valid process signal'
               }            
+            , 'options.coverIgnore is not array of strings':
+              { o:
+                { svc: 'test/fixture/svc'
+                , coverIgnore: ["pat/*", 12345]
+                }
+              , m: 'options.coverIgnore, when provided - must be an array of glob pattern strings'
+              }            
             }
 
           Object.keys(cases).forEach((title) => {
@@ -754,7 +761,7 @@ module.exports =
             }
           }
       })
-    , 'and called with COVER_IGNORE as array of patterns to ignore': 
+    , 'and options.coverIgnore is provided as array of patterns to ignore': 
       block(() => {
           const mockTestCtx = mockMockaCtx()
           const msg = []
@@ -764,10 +771,10 @@ module.exports =
           return {
             beforeAll: () => {
                 process.env.COVER = true
-                process.env.COVER_IGNORE = 'lib/file1.js,lib/file2.js'
                 before = sut(
                   { svc:         './test/fixture/svc'
                   , console:     { log: (...args) => { msg.push(args) } }
+                  , coverIgnore: ['lib/file1.js','lib/file2.js']
                   }
                 )
                 after = sut.tearDown
@@ -776,7 +783,6 @@ module.exports =
           , afterAll: (done) => { 
                 fs.unlink('./e2e.log', done)
                 process.env.COVER = origCover
-                process.env.COVER_IGNORE = origCoverIgnore
             }
           , 'using the before-all handler':
             { 'should not fail': function(done) {
@@ -784,14 +790,12 @@ module.exports =
                   this.slow(2000)
                   before.call(mockTestCtx, done)
               }
-            , 'should write to console that the server started': () => {
+            , 'should replace the default patterns with the provided patterns': () => {
                   msg.length.should.eql(1)
                   Should(msg[0][1].split(" ")).eql(
                     [ './node_modules/istanbul/lib/cli', 'cover'
                     , '--dir', './coverage/e2e-test'
                     , '--handle-sigint'
-                    , '-x', '**/test-e2e/**'
-                    , '-x', '**/test/**'
                     , '-x', 'lib/file1.js'
                     , '-x', 'lib/file2.js'
                     , './test/fixture/svc.js'
@@ -893,7 +897,6 @@ module.exports =
           let res
           return {
             beforeAll: () => {
-try {              
               res = sut.internal.initCtx({
                   svc: '/err',
                   cwd: 'test/fixture',
@@ -902,7 +905,6 @@ try {
                     './suite2'
                   ]
                 })
-} catch (x) { console.log(x); throw x }
             }
           , 'should not fail':
             () => Should(res).be.an.Object()
