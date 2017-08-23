@@ -1,4 +1,4 @@
-console.log('starting')
+console.log('starting', process.argv)
 
 setTimeout(() => console.log('[][][] listening on port 4343'), 100)
 setInterval(() => console.log('blip'), 5000)

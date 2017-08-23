@@ -667,7 +667,7 @@ module.exports =
                 process.env.COVER = true
                 before = sut( {
                     svc    : './test/fixture/svc',
-                    args   : ['./node_modules/istanbul/lib/cli', 'cover', '--dir', './test-dir'],
+                    args   : ['-s', 'some-value'],
                     console: { log: function(s) { msg.push(arguments) } }
                 })
                 after = sut.tearDown
@@ -688,8 +688,13 @@ module.exports =
                   msg[0][1].split(" ")
                     .should.eql(
                       [ './node_modules/istanbul/lib/cli', 'cover'
-                      , '--dir', './test-dir'
+                      , '--dir', './coverage/e2e-test'
+                      , '--handle-sigint'
+                      , '-x', '**/test-e2e/**'
+                      , '-x', '**/test/**'
                       , './test/fixture/svc.js'
+                      , '--'
+                      , '-s', 'some-value'
                       ]
                     )
               }
@@ -733,9 +738,10 @@ module.exports =
                   Should(msg[0][1].split(" "))
                     .eql(
                       [ './node_modules/istanbul/lib/cli', 'cover'
-                      , '--handle-sigint'
                       , '--dir', './coverage/e2e-test'
+                      , '--handle-sigint'
                       , '-x', '**/test-e2e/**'
+                      , '-x', '**/test/**'
                       , './test/fixture/svc.js'
                       ]
                     )
@@ -782,9 +788,10 @@ module.exports =
                   msg.length.should.eql(1)
                   Should(msg[0][1].split(" ")).eql(
                     [ './node_modules/istanbul/lib/cli', 'cover'
-                    , '--handle-sigint'
                     , '--dir', './coverage/e2e-test'
+                    , '--handle-sigint'
                     , '-x', '**/test-e2e/**'
+                    , '-x', '**/test/**'
                     , '-x', 'lib/file1.js'
                     , '-x', 'lib/file2.js'
                     , './test/fixture/svc.js'
@@ -886,6 +893,7 @@ module.exports =
           let res
           return {
             beforeAll: () => {
+try {              
               res = sut.internal.initCtx({
                   svc: '/err',
                   cwd: 'test/fixture',
@@ -894,6 +902,7 @@ module.exports =
                     './suite2'
                   ]
                 })
+} catch (x) { console.log(x); throw x }
             }
           , 'should not fail':
             () => Should(res).be.an.Object()
