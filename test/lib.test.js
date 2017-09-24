@@ -156,7 +156,7 @@ module.exports =
 
           return {
             beforeAll: () => {
-                Should.not.exist(sut.tearDown)
+                Should.not.exist(sut.teardown)
                 before = sut( {
                   svc    : './test/fixture/svc',
                   args   : ['-arg1', 'val1', '-arg2', 'val2'],
@@ -164,8 +164,8 @@ module.exports =
                   slow   : 4000,
                   console: { log: (...args) => { msg.push(args) } }
                 })
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll:
             (done) => fs.unlink('./e2e.log', done)
@@ -195,7 +195,7 @@ module.exports =
                   msg.length.should.eql(1)
                   msg[0][1].should.eql('./test/fixture/svc -arg1 val1 -arg2 val2')
               }
-            , 'and using the tearDown right after': 
+            , 'and using the teardown right after': 
               { 'should not fail':
                 (done) => after.call(mockTestCtx, done)
               , 'should write to console that the server is terminated':
@@ -211,7 +211,7 @@ module.exports =
 
           return {
             beforeAll: function(done) {
-                Should.not.exist(sut.tearDown)
+                Should.not.exist(sut.teardown)
                 before = sut(
                   { svc    : './test/fixture/err'
                   , logPath: './err.log'
@@ -221,8 +221,8 @@ module.exports =
                 before.call(mockTestCtx)
                 this.timeout(3100)
                 setTimeout(done, 3000)
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             },
             afterAll: function(done) {
                 fs.unlink('./err.log', after.bind(mockTestCtx, done) )
@@ -240,7 +240,7 @@ module.exports =
 
           return {
             beforeAll: function(done) {
-                Should.not.exist(sut.tearDown)
+                Should.not.exist(sut.teardown)
                 before = sut( {
                   svc    : './test/fixture/addr-in-use',
                   logPath: './addr.log',
@@ -250,8 +250,8 @@ module.exports =
                     err = e
                     done()
                 })
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll: (done) => fs.unlink('./addr.log', after.bind(mockTestCtx, done) )
           , 'should propagate an error': () => Should.exist(err)
@@ -297,8 +297,8 @@ module.exports =
                     , term_ipc    : { action: 'die', timeout: options.kill_timeout }
                     }
                   )
-                  after = sut.tearDown
-                  delete sut.tearDown
+                  after = sut.teardown
+                  delete sut.teardown
               }
             , 'and service starts OK': 
               { beforeAll: function(done) {
@@ -432,7 +432,7 @@ module.exports =
             { suite         : global.suite
             , test          : global.test
             , suiteSetup    : global.suiteSetup
-            , suiteTeardown : global.suiteTeardown
+            , suiteteardown : global.suiteteardown
             , require       : require 
             }
           const ooo = []
@@ -445,7 +445,7 @@ module.exports =
                 }
                 global.test           = spy('test')
                 global.suiteSetup     = spy('suiteSetup')
-                global.suiteTeardown  = spy('suiteTeardown')
+                global.suiteteardown  = spy('suiteteardown')
                 global.require        = spy('require')
                 
                 delete process.env.SUT 
@@ -471,7 +471,7 @@ module.exports =
                 ooo.map(item => item.action).should.eql( 
                   [ 'suite'
                   , 'suiteSetup'
-                  , 'suiteTeardown'
+                  , 'suiteteardown'
                   , 'require'
                   , 'require'
                   ]
@@ -485,7 +485,7 @@ module.exports =
             { suite         : global.suite
             , test          : global.test
             , suiteSetup    : global.suiteSetup
-            , suiteTeardown : global.suiteTeardown
+            , suiteteardown : global.suiteteardown
             , require       : require 
             }
           const ooo = []
@@ -500,7 +500,7 @@ module.exports =
                 }
                 global.test           = spy('test')
                 global.suiteSetup     = spy('suiteSetup')
-                global.suiteTeardown  = spy('suiteTeardown')
+                global.suiteteardown  = spy('suiteteardown')
                 global.require        = spy('require')
 
                 process.env.SUT       = 'http://localhost:5443'
@@ -677,8 +677,8 @@ module.exports =
                     args   : ['-s', 'some-value'],
                     console: { log: function(s) { msg.push(arguments) } }
                 })
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll: (done) => { 
                 fs.unlink('./e2e.log', done)
@@ -705,7 +705,7 @@ module.exports =
                       ]
                     )
               }
-            , 'and using the tearDown right after':
+            , 'and using the teardown right after':
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
               , 'should write to console that the server is terminated': 
                 () => msg.length.should.eql(2)
@@ -727,8 +727,8 @@ module.exports =
                   , console: { log: function(s) { msg.push(arguments) } }
                   }
                 )
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll: (done) => { 
                 fs.unlink('./e2e.log', done)
@@ -753,7 +753,7 @@ module.exports =
                       ]
                     )
               }
-            , 'and using the tearDown right after': 
+            , 'and using the teardown right after': 
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
               , 'should write to console that the server is terminated':
                 () => msg.length.should.eql(2)
@@ -777,8 +777,8 @@ module.exports =
                   , coverIgnore: ['lib/file1.js','lib/file2.js']
                   }
                 )
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll: (done) => { 
                 fs.unlink('./e2e.log', done)
@@ -802,7 +802,7 @@ module.exports =
                     ]
                   )
               }
-            , 'and using the tearDown right after':
+            , 'and using the teardown right after':
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
               , 'should write to console that the server is terminated': 
                 () => msg.length.should.eql(2)
@@ -816,7 +816,7 @@ module.exports =
           let before
           return {
             beforeAll: function (done) {
-                Should.not.exist(sut.tearDown)
+                Should.not.exist(sut.teardown)
                 before = sut(
                   { svc    : './test/fixture/err'
                   , logPath: './err.log'
@@ -826,8 +826,8 @@ module.exports =
                 before.call(mockTestCtx)
                 setTimeout(done, 5000)
                 this.timeout(5100)
-                after = sut.tearDown
-                delete sut.tearDown
+                after = sut.teardown
+                delete sut.teardown
             }
           , afterAll: (done) => { fs.unlink('./err.log', after.bind(mockTestCtx, done) ) }
           , 'should collect errors to the log as well': 
@@ -850,8 +850,8 @@ module.exports =
                 , console:  { log: (s) => { msg.push(arguments) } }
                 }
               )
-              after = sut.tearDown
-              delete sut.tearDown
+              after = sut.teardown
+              delete sut.teardown
           }
         , afterAll: (done) => {
               fs.unlink('./e2e.log', done)

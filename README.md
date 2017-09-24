@@ -1,9 +1,9 @@
-# mocha-e2e
+# e2e-helper
 
-A mocha helper to manage CLI processes such as web-servers, socket-servers, queue consumers, or any services that should be launched as part of a suite setup, and killed as a part of a suite cleanup.
+A helper for end-to-end tests (aka e2e tests) to manage CLI processes such as web-servers, socket-servers, queue consumers, or any services that should be launched as part of a suite setup, and killed as a part of a suite cleanup.
 
 ## Badges
- - [![Build Status](https://secure.travis-ci.org/osher/mocha-e2e.png?branch=master)](http://travis-ci.org/osher/mocha-e2e) Tested on latests node versions of 6,7,8
+ - [![Build Status](https://secure.travis-ci.org/osher/e2e-helper.png?branch=master)](http://travis-ci.org/osher/e2e-helper) Tested on latests node versions of 6,7,8
 
 # Features list:
 1. manages for you the setup and teardown hooks
@@ -23,14 +23,14 @@ A mocha helper to manage CLI processes such as web-servers, socket-servers, queu
 
 # usage
 
-## mocha bdd ui
+## with mocha, bdd ui
 
 Assume few e2e suites which are organized per endpoint / page  (however this is just a proposal needed to make sense of the example - you can organize your tests anyhow you like)
 
 Then, provide an index file `~/test-e2e/index.js`
 
 ```
-require('mocha-e2e').bdd({
+require('e2e-helper').mocha_bdd({
   svc:   'bin/server',
   suites: [
     'test-e2e/index.html.test.js',
@@ -50,38 +50,49 @@ which is ran as `npm e2e`, which in turn is configured to run as:
     "e2e": "mocha test-ete/index.js",
 ```
 
+there is an alias for short form:
+```
+require('e2e-helper').bdd({
+```
 
-## mocha tdd ui
+## with mocha, tdd ui
 
 Almost exactly like `mocha bdd ui`, only that in stead of 
 ```
-require('mocha-e2e').bdd({
+require('e2e-helper').mocha_bdd({
 ```
 use:
 
 ```
-require('mocha-e2e').tdd({
+require('e2e-helper').mocha_tdd({
+```
+or in short:
+```
+require('e2e-helper').tdd({
 ```
 
+**NOTE:** If you want to test your server in few execution modes - you may for example provide few files in the fassion that `test-e2e/index.js` is portrayed here, 
+and configure your `npm e2e` to run all these test-roots.
 
-## the mocha-ui-exports plugin
+
+## with mocha, using the mocha-ui-exports plugin
 
 Almost exactly like `mocha bdd ui`, only that in stead of 
 ```
-require('mocha-e2e').bdd({
+require('e2e-helper').mocha_bdd({
 ```
 use:
 ```
-module.exports = require('mocha-e2e').exports({
+module.exports = require('e2e-helper').mocha_ui_exports({
 ```
 
-## under the hood
+## with any other framework (not mocha)
 
-All 3 facilitators are using the same lower-level mechanism to retrieve the 
+All 3 mocha facilitators are using the same lower-level mechanism to retrieve the 
 setup and teardown hooks, and load the suites object in correspondence to the
 ui method used.
 
-The lower level mechanism accepts the following options:
+The lower level mechanism is the main exported module - which is a function accepts the following options:
 
  - *svc* - string, mandatory, should be relative path. a path to the script that starts the service.
    if you need to provide an absolute path - you may use .cwd  as the absolute path
@@ -101,11 +112,23 @@ on top of that list, the higher facilitators accept as well
  - *title* - string - the root level test title*
  - *suites* - array of strings - paths relative to `process.cwd()` (or absolute) of suites to run between the hooks.
 
+The returned value is the setup handler, where the teardown handler is found both as a property of the returned setup handler, and as a property of the main exported module.
 
-To make sure the setup and teardown are called first and last respectively - all the suites are loaded to the same root tests tree.
+e.g.:
+```
+const setup = require('e2e-helper')({ 
+  svc:   'bin/server',
+  readyNotice: 'server is started at:'
+  
+}) 
 
-If you want to test your server in few execution modes - you may provide few files in the fassion that `test-e2e/index.js` is portrayed here, 
-and confugure your `npm e2e` to run all these roots.
+setup //--> function(done) { ... }
+setup.teardown //-->  function(done) { ... }
+```
+ 
+To make sure the setup and teardown are called first and last respectively - in mocha, all the suites are loaded to the same root tests tree.
+
+If you're using a different test runner - you make sure all your tests happen between the setup and the teardown :)
 
 
 # Lisence
