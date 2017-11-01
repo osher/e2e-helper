@@ -64,22 +64,22 @@ You can use the hooks in any of the suites independently - but unless if you mak
 
 ## The Full options list
 
- - *svc* - string, mandatory, should be relative path. a path to the script that starts the service.
+ - `svc` - string, mandatory, should be relative path. a path to the script that starts the service.
    if you need to provide an absolute path - you may use .cwd  as the absolute path
    when options is string - it is uderstood as options.svc
- - *logPath* - string, optional - path to logfile. default: './e2e.log'
- - *timeout* - integer, optional - timeout for server setup
- - *slow* - integer, optional - slow bar indicator for server setup
- - *readyNotice* - string, optional - message to expect on service output that
+ - `logPath` - string, optional - path to logfile. default: './e2e.log'
+ - `timeout` - integer, optional - timeout for server setup
+ - `slow` - integer, optional - slow bar indicator for server setup
+ - `readyNotice` - string, optional - message to expect on service output that
    indicates the service is ready. default: 'listening on port'
- - *args* - array, argumnets to be concatenated to the running command
- - *cwd* - string, optional - the work directory the process should run in
- - *term_code* - string, optional, the termination message to send to the child, default: SIGTERM
- - *term_ipc* - optional, any value provided will be used to child.send(term_ipc) before escalating to child.kill(term_code)
- - *term_timeout* - optional, number, timeout in miliseconds before escalations( ipc->term->kill)
- - *coverIgnore* - optional, array of glob-pattern strings to exclude from cover tool, meaningful only for istanbul COVER mode
+ - `args` - array, argumnets to be concatenated to the running command
+ - `cwd` - string, optional - the work directory the process should run in
+ - `term_code` - string, optional, the termination message to send to the child, default: SIGTERM
+ - `term_ipc` - optional, any value provided will be used to child.send(term_ipc) before escalating to child.kill(term_code)
+ - `term_timeout` - optional, number, timeout in miliseconds before escalations( ipc->term->kill)
+ - `coverIgnore` - optional, array of glob-pattern strings to exclude from cover tool, meaningful only for istanbul COVER mode
 on top of that list, the higher facilitators accept as well
- - *title* - string - the root level test title
+ - `title` - string - the root level test title
  
 
 ## with mocha
@@ -92,7 +92,7 @@ To make sure the setup and teardown are called first and last respectively - all
 For this - the passed `options` should include them as well.
 
 ### Additional option supported in mocha facilitators
- - *suites* - array of strings - paths relative to `process.cwd()` (or absolute) of suites to run between setup and teardown.
+ - `suites` - array of strings - paths relative to `process.cwd()` (or absolute) of suites to run between setup and teardown.
 
 ## with mocha, bdd ui
 
