@@ -1,6 +1,6 @@
 {
   "name": "e2e-helper",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "end-to-end test helper, with facilitators for mocha",
   "main": "lib",
   "scripts": {
@@ -14,11 +14,13 @@
     "url": "https://github.com/osher/e2e-helper"
   },
   "keywords": [
-    "test-automation",
+    "test for a CLI service",
+    "test automation",
+    "mocha",
     "end-to-end",
-	"e2e",
-	"ete",
-    "utility"
+    "end to end",
+    "e2e",
+    "ete"
   ],
   "license": "MIT",
   "dependencies": {},
