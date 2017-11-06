@@ -29,7 +29,7 @@
     "test": "mocha",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
     "postcover": "npm run cover-enforce",
-    "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 90 --branches 90 --statements 90"
+    "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 90 --branches 90 --statements 90",
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot && cat coverage/lcov.info | coveralls --verbose"
   }
 }
