@@ -12,7 +12,7 @@ It can do so for BDD, TDD, and moch-ui-exports UIs.
 
 ## Badges
  - [![Build Status](https://secure.travis-ci.org/osher/e2e-helper.png?branch=master)](http://travis-ci.org/osher/e2e-helper) Tested on latests node versions of 6,7,8
-
+ - [![Coverage Status](https://coveralls.io/repos/github/osher/e2e-helper/badge.svg?branch=master)](https://coveralls.io/github/osher/e2e-helper?branch=master)
 
 # Features list:
 1. manages for you the setup and teardown hooks
