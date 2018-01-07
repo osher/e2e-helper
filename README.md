@@ -66,22 +66,25 @@ You can use the hooks in any of the suites independently - but unless if you mak
 ## The Full options list
 
  - `svc` - string, mandatory, should be relative path. a path to the script that starts the service.
-   if you need to provide an absolute path - you may use .cwd  as the absolute path
-   when options is string - it is uderstood as options.svc
- - `logPath` - string, optional - path to logfile. default: './e2e.log'
- - `timeout` - integer, optional - timeout for server setup
- - `slow` - integer, optional - slow bar indicator for server setup
+   if you need to provide an absolute path - you may use  `.cwd` to provide the absolute path
+   when options is string - it is uderstood as options.svc, applying defaults to all the rest
+ - `cwd` - string, optional - the work directory the process should run in. defaults to current dir
+ - `logPath` - string, optional - path to logfile. default: `'./e2e.log'`
+ - `timeout` - integer, optional - timeout for server setup, default: `10000`
+ - `slow` - integer, optional - slow bar indicator for server setup, default: `10000`
  - `readyNotice` - string, optional - message to expect on service output that
-   indicates the service is ready. default: 'listening on port'
- - `args` - array, argumnets to be concatenated to the running command
- - `cwd` - string, optional - the work directory the process should run in
- - `term_code` - string, optional, the termination message to send to the child, default: SIGTERM
- - `term_ipc` - optional, any value provided will be used to child.send(term_ipc) before escalating to child.kill(term_code)
+   indicates the service is ready. default: `'listening on port'`
+ - `args` - array, optional, argumnets to be concatenated to the running command
+ - `term_code` - string, optional, the termination message to send to the child, default: `'SIGINT'`
+ - `term_ipc` - optional, any value provided will be used to child.send(term_ipc) before escalating
+   to term-code. When not provided - starts with term-code
  - `term_timeout` - optional, number, timeout in miliseconds before escalations( ipc->term->kill)
- - `coverIgnore` - optional, array of glob-pattern strings to exclude from cover tool, meaningful only for istanbul COVER mode
-on top of that list, the higher facilitators accept as well
- - `title` - string - the root level test title
- 
+   default: `3000`
+ - `coverSvc` - optional, path to cover-tool node-script which should run `.svc` to gather coverage
+   default: `'./node_modules/istanbul/lib/cli'`
+ - `coverArgs` - optional, array of CLI arguments to the cover tool
+   default: `["cover","--dir","./coverage/e2e-test","--handle-sigint"]`
+ - `coverIgnore` - optional, array of glob-pattern strings for files to exclude from coverage
 
 ## with mocha
 
@@ -172,13 +175,13 @@ module.exports = require('e2e-helper').exports({
 # Stablity
 I've used this utility for years now, but took too long to just publish it.
 There may be edge-cases with cover mode on windows - that's the only part I'm yet to be satisfied with.
-I don't expect API changes for fixing any of these might-be issues.
+I don't expect API changes for fixing any of these issues.
 
 # Contribute
 - submit working code
 - if you add functionality - add tests :)
 - don't really worry much about the style...
-  I hope it doesn't freak you out (it just might if you're using IDE)
+  I hope it doesn't freak you out (it might if you're using IDE)
   If I'll really need to - I'll ask you to permit me on your fork, I'll help as best I can with styles or with anything else :)
 
 # Lisence

@@ -121,6 +121,20 @@ module.exports =
                 }
               , m: 'options.term_code, when provided - must be a valid process signal'
               }            
+            , 'options.coverSvc is not a string':
+              { o:
+                { svc: 'test/fixture/svc'
+                , coverSvc: []
+                }
+              , m: 'options.svc, when provided - must be path node CLI script, such as istanbul'
+              }            
+            , 'options.coverArgs is not array of strings':
+              { o:
+                { svc: 'test/fixture/svc'
+                , coverArgs: ["pat/*", 12345]
+                }
+              , m: 'options.coverArgs, when provided - must be an array of CLI arguments'
+              }            
             , 'options.coverIgnore is not array of strings':
               { o:
                 { svc: 'test/fixture/svc'
@@ -231,8 +245,8 @@ module.exports =
                 require('fs').readFileSync('./err.log').toString().should.eql('ERR: oups\n')
             }
           }
-      }),
-      'and service fails to start because address is in use': 
+      })
+    , 'and service fails to start because address is in use': 
       block(() => {
           const mockTestCtx = mockMockaCtx()
           let before
@@ -672,7 +686,7 @@ module.exports =
           return {
             beforeAll: () => {
                 process.env.COVER = true
-                before = sut( {
+                before = sut({
                     svc    : './test/fixture/svc',
                     args   : ['-s', 'some-value'],
                     console: { log: function(s) { msg.push(arguments) } }
@@ -697,8 +711,6 @@ module.exports =
                       [ './node_modules/istanbul/lib/cli', 'cover'
                       , '--dir', './coverage/e2e-test'
                       , '--handle-sigint'
-                      , '-x', '**/test-e2e/**'
-                      , '-x', '**/test/**'
                       , './test/fixture/svc.js'
                       , '--'
                       , '-s', 'some-value'
@@ -747,8 +759,6 @@ module.exports =
                       [ './node_modules/istanbul/lib/cli', 'cover'
                       , '--dir', './coverage/e2e-test'
                       , '--handle-sigint'
-                      , '-x', '**/test-e2e/**'
-                      , '-x', '**/test/**'
                       , './test/fixture/svc.js'
                       ]
                     )
