@@ -20,6 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.0.0",
+    "eslint": "^4.15.0",
     "istanbul": "*",
     "mocha": "~2.3.4",
     "mocha-ui-exports": "^1.1.0",
