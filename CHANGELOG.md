@@ -1,7 +1,9 @@
 e2e-helper
 ==========
 
-## 0.9.1 - allow better customization for cover mode
+## 0.9.1
+  - allow better customization for cover mode
+  - add eslint definitions
 
 ## 0.9.0 - official release
 

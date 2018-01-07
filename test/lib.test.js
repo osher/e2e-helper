@@ -446,7 +446,7 @@ module.exports =
             { suite         : global.suite
             , test          : global.test
             , suiteSetup    : global.suiteSetup
-            , suiteteardown : global.suiteteardown
+            , suiteTeardown : global.suiteTeardown
             , require       : require 
             }
           const ooo = []
@@ -459,7 +459,7 @@ module.exports =
                 }
                 global.test           = spy('test')
                 global.suiteSetup     = spy('suiteSetup')
-                global.suiteteardown  = spy('suiteteardown')
+                global.suiteTeardown  = spy('suiteTeardown')
                 global.require        = spy('require')
                 
                 delete process.env.SUT 
@@ -485,7 +485,7 @@ module.exports =
                 ooo.map(item => item.action).should.eql( 
                   [ 'suite'
                   , 'suiteSetup'
-                  , 'suiteteardown'
+                  , 'suiteTeardown'
                   , 'require'
                   , 'require'
                   ]

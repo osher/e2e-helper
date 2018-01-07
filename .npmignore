@@ -3,6 +3,8 @@ coverage
 .gitignore
 .npmignore
 .hgignore
+.eslintrc.yml
+.travis.yml
 .settings
 *.njsproj
 *.log

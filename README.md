@@ -180,8 +180,7 @@ I don't expect API changes for fixing any of these issues.
 # Contribute
 - submit working code
 - if you add functionality - add tests :)
-- don't really worry much about the style...
-  I hope it doesn't freak you out (it might if you're using IDE)
+- don't worry about the style. I tried to add eslint to help with that, although it's not bullet-proof.
   If I'll really need to - I'll ask you to permit me on your fork, I'll help as best I can with styles or with anything else :)
 
 # Lisence
