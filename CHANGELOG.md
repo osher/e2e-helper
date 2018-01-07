@@ -1,5 +1,7 @@
 e2e-helper
 ==========
+## 0.9.2
+  - fix bug: kill timeouts should be `.unref()`ed
 
 ## 0.9.1
   - allow better customization for cover mode
