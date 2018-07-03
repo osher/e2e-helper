@@ -1,5 +1,8 @@
 e2e-helper
 ==========
+## 0.9.3
+  - add in Readme.md the undocumented feature: `options.env`
+
 ## 0.9.2
   - fix bug: kill timeouts should be `.unref()`ed
 

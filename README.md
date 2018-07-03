@@ -69,6 +69,7 @@ You can use the hooks in any of the suites independently - but unless if you mak
    if you need to provide an absolute path - you may use  `.cwd` to provide the absolute path
    when options is string - it is uderstood as options.svc, applying defaults to all the rest
  - `cwd` - string, optional - the work directory the process should run in. defaults to current dir
+ - `env` - flat object, environment-variables to pass to the spawned service. default: {}
  - `logPath` - string, optional - path to logfile. default: `'./e2e.log'`
  - `timeout` - integer, optional - timeout for server setup, default: `10000`
  - `slow` - integer, optional - slow bar indicator for server setup, default: `10000`
