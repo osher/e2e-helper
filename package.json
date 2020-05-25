@@ -1,6 +1,6 @@
 {
   "name": "e2e-helper",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "end-to-end test helper, with facilitators for mocha",
   "main": "lib",
   "repository": {
@@ -32,5 +32,8 @@
     "postcover": "npm run cover-enforce",
     "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 90 --branches 90 --statements 90",
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot && cat coverage/lcov.info | coveralls --verbose"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

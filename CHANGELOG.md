@@ -1,11 +1,7 @@
 e2e-helper
 ==========
-<<<<<<< HEAD
-=======
 ## 0.9.4
-  - setup - fix - pass error to `done` when SUT fails to start
-  - include node v12.x and v14.x in tests
->>>>>>> 06e7a2f8f10679e30c40c5cd3a75b91e83ec2c7a
+  - fix CHANGELOG.md
 
 ## 0.9.3
   - setup - fix - pass error to `done` when SUT fails to start
