@@ -1,6 +1,6 @@
 {
   "name": "e2e-helper",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "end-to-end test helper, with facilitators for mocha",
   "main": "lib",
   "repository": {
@@ -22,7 +22,7 @@
     "coveralls": "^3.0.0",
     "eslint": "^4.15.0",
     "istanbul": "*",
-    "mocha": "~2.3.4",
+    "mocha": "^7.2.0",
     "mocha-ui-exports": "^1.1.0",
     "should": "^9.0.0"
   },
