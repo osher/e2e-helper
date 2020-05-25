@@ -40,10 +40,10 @@ The returned value is the setup handler, where the teardown handler is found bot
 
 e.g.:
 ```
-const setup = require('e2e-helper')({ 
+const setup = require('e2e-helper')({
   svc:   'bin/server',
   readyNotice: 'server is started'
-}) 
+})
 
 //setup --> function(done) { ... }
 //setup.teardown -->  function(done) { ... }
@@ -51,7 +51,7 @@ const setup = require('e2e-helper')({
 declare('my service', () => {
    before(setup);
    after(setup.teardown);
-   
+
    require('./api-1.test.js');
    require('./api-2.test.js');
    require('./api-3.test.js');
@@ -96,8 +96,9 @@ All 3 mocha facilitators are using the same lower-level mechanism to retrieve th
 To make sure the setup and teardown are called first and last respectively - all the suites are loaded to the same root tests tree.
 For this - the passed `options` should include them as well.
 
-### Additional option supported in mocha facilitators
+### Additional options supported in mocha facilitators
  - `suites` - array of strings - paths relative to `process.cwd()` (or absolute) of suites to run between setup and teardown.
+ - `title` - passed as 1st argument to the `describe` that will hold the setup, teardown, and all the passed suites. defaults to `end-to-end`
 
 ## with mocha, bdd ui
 
@@ -126,7 +127,7 @@ which is ran as `npm e2e`, which in turn is configured to run as:
     "e2e": "mocha test-ete/index.js",
 ```
 
-**NOTE:** If you want to test your server in few execution modes - you may for example provide few files in the fassion that `test-e2e/index.js` is portrayed here, 
+**NOTE:** If you want to test your server in few execution modes - you may for example provide few files in the fassion that `test-e2e/index.js` is portrayed here,
 and configure your `npm e2e` to run all these test-roots.
 
 
@@ -138,7 +139,7 @@ require('e2e-helper').bdd({
 
 ## with mocha, tdd ui
 
-Almost exactly like `mocha bdd ui`, only that in stead of 
+Almost exactly like `mocha bdd ui`, only that in stead of
 ```
 require('e2e-helper').mocha_bdd({
   ...
@@ -157,7 +158,7 @@ require('e2e-helper').tdd({
 
 ## with mocha, using the mocha-ui-exports plugin
 
-Almost exactly like `mocha bdd ui`, only that in stead of 
+Almost exactly like `mocha bdd ui`, only that in stead of
 ```
 require('e2e-helper').mocha_bdd({
   ...
