@@ -10,7 +10,7 @@ module.exports =
         sut.length.should.eql(1)
     }
   , 'when called with bad options':
-    { 'should throw a friendly error': 
+    { 'should throw a friendly error':
       block(() => {
           const cases =
             { 'null':
@@ -44,29 +44,29 @@ module.exports =
                 }
               , m: 'options.logPath is expected to be a path'
               }
-            , 'options.logPath not a string': 
-              { o: 
+            , 'options.logPath not a string':
+              { o:
                 { svc: 'test/fixture/svc'
                 , logPath: {}
                 }
               , m: 'options.logPath is expected to be a path'
               }
             , 'options.readyNotice null':
-              { o: 
+              { o:
                 { svc: 'test/fixture/svc'
                 , readyNotice: null
                 }
               , m: 'options.readyNotice must be a string'
               }
             , 'options.readyNotice not a string':
-              { o: 
+              { o:
                 { svc: 'test/fixture/svc'
                 , readyNotice: -0.431
                 }
               , m: 'options.readyNotice must be a string'
               }
             , 'options.args not an array':
-              { o: 
+              { o:
                 { svc: 'test/fixture/svc'
                 , args: 'I am not an array'
                 }
@@ -80,7 +80,7 @@ module.exports =
               , m: 'options.timeout must be a number'
               }
             , 'options.slow not a number':
-              { o: 
+              { o:
                 { svc: 'test/fixture/svc'
                 , slow: 'I am not a number'
                 }
@@ -120,28 +120,28 @@ module.exports =
                 , term_code: 'not a valid SIG code'
                 }
               , m: 'options.term_code, when provided - must be a valid process signal'
-              }            
+              }
             , 'options.coverSvc is not a string':
               { o:
                 { svc: 'test/fixture/svc'
                 , coverSvc: []
                 }
               , m: 'options.svc, when provided - must be path node CLI script, such as istanbul'
-              }            
+              }
             , 'options.coverArgs is not array of strings':
               { o:
                 { svc: 'test/fixture/svc'
                 , coverArgs: ["pat/*", 12345]
                 }
               , m: 'options.coverArgs, when provided - must be an array of CLI arguments'
-              }            
+              }
             , 'options.coverIgnore is not array of strings':
               { o:
                 { svc: 'test/fixture/svc'
                 , coverIgnore: ["pat/*", 12345]
                 }
               , m: 'options.coverIgnore, when provided - must be an array of glob pattern strings'
-              }            
+              }
             }
 
           Object.keys(cases).forEach((title) => {
@@ -162,7 +162,7 @@ module.exports =
       })
     },
     'when called with correct options with no term_ipc':
-    { 'and service is OK': 
+    { 'and service is OK':
       block(() => {
           const msg = []
           const mockTestCtx = mockMockaCtx()
@@ -194,13 +194,13 @@ module.exports =
                 after.length.should.eql(1)
             }
           , 'using the before-all handler':
-            { 'should not fail': 
+            { 'should not fail':
               function (done) {
                   this.timeout(5000)
                   this.slow(2000)
                   before.call(mockTestCtx, done)
               }
-            , 'should pass test.timeout the provided timeout': 
+            , 'should pass test.timeout the provided timeout':
               () => mockTestCtx.timeout.passedArg.should.eql(8000)
             , 'should pass test.slow the provided slow bar':
               () => mockTestCtx.slow.passedArg.should.eql(4000)
@@ -209,7 +209,7 @@ module.exports =
                   msg.length.should.eql(1)
                   msg[0][1].should.eql('./test/fixture/svc -arg1 val1 -arg2 val2')
               }
-            , 'and using the teardown right after': 
+            , 'and using the teardown right after':
               { 'should not fail':
                 (done) => after.call(mockTestCtx, done)
               , 'should write to console that the server is terminated':
@@ -221,7 +221,7 @@ module.exports =
     , 'and service emits errors':
       block(() => {
           const mockTestCtx = mockMockaCtx()
-          let before
+          let before, after
 
           return {
             beforeAll: function(done) {
@@ -246,10 +246,10 @@ module.exports =
             }
           }
       })
-    , 'and service fails to start because address is in use': 
+    , 'and service fails to start because address is in use':
       block(() => {
           const mockTestCtx = mockMockaCtx()
-          let before
+          let before, after
           let err
 
           return {
@@ -296,7 +296,7 @@ module.exports =
             }
           )
         }
-      
+
         function suite(options) {
             return {
               beforeAll: function() {
@@ -314,13 +314,13 @@ module.exports =
                   after = sut.teardown
                   delete sut.teardown
               }
-            , 'and service starts OK': 
+            , 'and service starts OK':
               { beforeAll: function(done) {
                     this.timeout(5000)
                     this.slow(2000)
                     before.call(mockTestCtx, done)
                 }
-              , 'using the teardown handler': 
+              , 'using the teardown handler':
                 { 'should not fail': function(done) {
                       this.slow(3000)
                       this.timeout(5000)
@@ -333,12 +333,12 @@ module.exports =
     })
   , '.mocha_bdd(options)': {
       'when called with minimal options': block(function() {
-          const orig = 
-            { describe: describe
-            , it      : it
-            , before  : before
-            , after   : after 
-            , require : require 
+          const orig =
+            { describe: global.describe
+            , it      : global.it
+            , before  : global.before
+            , after   : global.after
+            , require : global.require
             }
           const ooo = []
           return {
@@ -353,7 +353,7 @@ module.exports =
                 global.after    = spy('after')
                 global.require  = spy('require')
 
-                function spy(action) { 
+                function spy(action) {
                     return () => { ooo.push({ action: action, args: arguments }) }
                 }
             }
@@ -370,7 +370,7 @@ module.exports =
                 })
             }
           , 'should fire a `describe` block, in it before and after, and then a require for each suite ': () => {
-                ooo.map(item => item.action).should.eql( 
+                ooo.map(item => item.action).should.eql(
                   [ 'describe'
                   , 'before'
                   , 'after'
@@ -383,16 +383,16 @@ module.exports =
       })
     , 'when called with a SUT=<url> env variable':
       block(() => {
-          const orig = 
-            { describe: describe
-            , it      : it
-            , before  : before
-            , after   : after 
-            , require : require 
+          const orig =
+            { describe: global.describe
+            , it      : global.it
+            , before  : global.before
+            , after   : global.after
+            , require : global.require
             }
           const ooo = []
           const log = []
-          
+
           return {
             before: function() {
                 const describe  = spy('describe')
@@ -406,8 +406,8 @@ module.exports =
                 global.require  = spy('require')
 
                 process.env.SUT = 'http://localhost:3221'
-                
-                function spy(action) { 
+
+                function spy(action) {
                     return () => { ooo.push({ action: action, args: arguments }) }
                 }
             }
@@ -418,7 +418,7 @@ module.exports =
           , 'should not fail': () => {
                 sut.mocha_bdd(
                   { svc: './test/fixture/err'
-                  , suites: 
+                  , suites:
                     [ './fixture/suite1'
                     , './suite2'
                     ]
@@ -427,7 +427,7 @@ module.exports =
                 )
             }
           , 'should just mount the suites without setup and teardown': () => {
-                ooo.map(item => item.action).should.eql( 
+                ooo.map(item => item.action).should.eql(
                   [ 'describe'
                   , 'require'
                   , 'require'
@@ -437,17 +437,17 @@ module.exports =
           , 'should emit a line to console about using SUT':
             () => log.should.eql([['test target: ', 'http://localhost:3221']])
           }
-      })         
+      })
     }
   , '.mocha_tdd(options)': {
-      'when called with minimal options': 
+      'when called with minimal options':
       block(() => {
-          const orig = 
+          const orig =
             { suite         : global.suite
             , test          : global.test
             , suiteSetup    : global.suiteSetup
             , suiteTeardown : global.suiteTeardown
-            , require       : require 
+            , require       : require
             }
           const ooo = []
           return {
@@ -461,10 +461,10 @@ module.exports =
                 global.suiteSetup     = spy('suiteSetup')
                 global.suiteTeardown  = spy('suiteTeardown')
                 global.require        = spy('require')
-                
-                delete process.env.SUT 
 
-                function spy(action) { 
+                delete process.env.SUT
+
+                function spy(action) {
                     return () => { ooo.push({ action: action, args: arguments }) }
                 }
             }
@@ -482,7 +482,7 @@ module.exports =
                 })
             }
           , 'should fire a `suite` block, in it before and after, and a require in it for each suite ': () => {
-                ooo.map(item => item.action).should.eql( 
+                ooo.map(item => item.action).should.eql(
                   [ 'suite'
                   , 'suiteSetup'
                   , 'suiteTeardown'
@@ -495,16 +495,16 @@ module.exports =
       })
     , 'when called with a SUT=<url> env variable':
       block(() => {
-          const orig = 
+          const orig =
             { suite         : global.suite
             , test          : global.test
             , suiteSetup    : global.suiteSetup
             , suiteteardown : global.suiteteardown
-            , require       : require 
+            , require       : require
             }
           const ooo = []
           const log = []
-          
+
           return {
             beforeAll: function() {
                 const suite = spy('suite')
@@ -518,8 +518,8 @@ module.exports =
                 global.require        = spy('require')
 
                 process.env.SUT       = 'http://localhost:5443'
-                
-                function spy(action) { 
+
+                function spy(action) {
                     return () => { ooo.push({ action: action, args: arguments }) }
                 }
             }
@@ -530,7 +530,7 @@ module.exports =
           , 'should not fail': () => {
                 sut.mocha_tdd(
                   { svc: './test/fixture/err'
-                  , suites: 
+                  , suites:
                     [ './fixture/suite1'
                     , './suite2'
                     ]
@@ -539,7 +539,7 @@ module.exports =
                 )
             }
           , 'should just mount the suites without setup and teardown': () => {
-                ooo.map(item => item.action).should.eql( 
+                ooo.map(item => item.action).should.eql(
                   [ 'suite'
                   , 'require'
                   , 'require'
@@ -549,10 +549,10 @@ module.exports =
           , 'should emit a line to console about using SUT':
             () => log.should.eql([['test target: ', 'http://localhost:5443']])
           }
-      })      
+      })
     }
   , '.mocha_ui_exports(options)': {
-      'when called with minimal options': 
+      'when called with minimal options':
       block(() => {
           const orig = { require: require }
           const ooo  = []
@@ -571,20 +571,20 @@ module.exports =
           , 'should not fail': () => {
                 res = sut.mocha_ui_exports(
                   { svc:    './test/fixture/err'
-                  , suites: 
+                  , suites:
                     [ './suite1'
                     , './suite2'
                     ]
                   }
                 )
             }
-          , 'should return an export suite module': 
+          , 'should return an export suite module':
             () => Should(res).be.an.Object()
           , 'the returned suite module':
             { beforeAll: () => Should.exist(res)
-            , 'should have the root suite as `end-to-end`': 
+            , 'should have the root suite as `end-to-end`':
               () => Should(res['end-to-end']).be.an.Object()
-            , 'should have beforeAll and afterAll hooks': 
+            , 'should have beforeAll and afterAll hooks':
               () => {
                   Should(res['end-to-end'].beforeAll)
                     .be.a.Function()
@@ -605,7 +605,7 @@ module.exports =
             }
           }
       })
-    , 'when called with a SUT=<url> env variable': 
+    , 'when called with a SUT=<url> env variable':
       block(() => {
           const orig = { require: require }
           const ooo  = []
@@ -620,17 +620,17 @@ module.exports =
                       '/some/endpoint': {}
                     }
                 }
-                
+
                 process.env.SUT = 'http://localhost:9887'
             }
-          , afterAll: () => { 
-                global.require = orig.require 
+          , afterAll: () => {
+                global.require = orig.require
                 delete process.env.SUT
             }
           , 'should not fail': () => {
                 res = sut.mocha_ui_exports(
                   { svc:    './test/fixture/svc'
-                  , suites: 
+                  , suites:
                     [ './suite1'
                     , './suite2'
                     ]
@@ -638,13 +638,13 @@ module.exports =
                   }
                 )
             }
-          , 'should return an export suite module': 
+          , 'should return an export suite module':
             () => Should(res).be.an.Object()
           , 'the returned suite module':
             { beforeAll: () => Should.exist(res)
-            , 'should have the root suite as `end-to-end`': 
+            , 'should have the root suite as `end-to-end`':
               () => Should(res['end-to-end']).be.an.Object()
-            , 'should not have beforeAll and afterAll hooks': 
+            , 'should not have beforeAll and afterAll hooks':
               () => {
                   Should.not.exist(res['end-to-end'].beforeAll)
                   Should.not.exist(res['end-to-end'].afterAll)
@@ -673,11 +673,11 @@ module.exports =
       () => Should(sut.tdd).equal(sut.mocha_tdd)
     }
   , '.exports(options)': {
-      'should be a sinonym for .mocha_ui_exports(options)': 
+      'should be a sinonym for .mocha_ui_exports(options)':
       () => Should(sut.exports).equal(sut.mocha_ui_exports)
     }
   , 'when called with a COVER=true env variable':
-    { 'and called with correct options': 
+    { 'and called with correct options':
       block(() => {
           const mockTestCtx = mockMockaCtx()
           const msg = []
@@ -694,9 +694,9 @@ module.exports =
                 after = sut.teardown
                 delete sut.teardown
             }
-          , afterAll: (done) => { 
+          , afterAll: (done) => {
                 fs.unlink('./e2e.log', done)
-                process.env.COVER = origCover  
+                process.env.COVER = origCover
             }
           , 'using the before-all handler':
             { 'should not fail': function(done) {
@@ -719,13 +719,13 @@ module.exports =
               }
             , 'and using the teardown right after':
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
-              , 'should write to console that the server is terminated': 
+              , 'should write to console that the server is terminated':
                 () => msg.length.should.eql(2)
               }
             }
           }
       })
-    , 'and called with only svc name': 
+    , 'and called with only svc name':
       block(function() {
           const mockTestCtx = mockMockaCtx()
           const msg = []
@@ -742,11 +742,11 @@ module.exports =
                 after = sut.teardown
                 delete sut.teardown
             }
-          , afterAll: (done) => { 
+          , afterAll: (done) => {
                 fs.unlink('./e2e.log', done)
-                process.env.COVER = origCover  
+                process.env.COVER = origCover
             }
-          , 'using the before-all handler': 
+          , 'using the before-all handler':
             { 'should not fail': function(done) {
                   this.timeout(5000)
                   this.slow(2000)
@@ -763,7 +763,7 @@ module.exports =
                       ]
                     )
               }
-            , 'and using the teardown right after': 
+            , 'and using the teardown right after':
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
               , 'should write to console that the server is terminated':
                 () => msg.length.should.eql(2)
@@ -771,7 +771,7 @@ module.exports =
             }
           }
       })
-    , 'and options.coverIgnore is provided as array of patterns to ignore': 
+    , 'and options.coverIgnore is provided as array of patterns to ignore':
       block(() => {
           const mockTestCtx = mockMockaCtx()
           const msg = []
@@ -790,7 +790,7 @@ module.exports =
                 after = sut.teardown
                 delete sut.teardown
             }
-          , afterAll: (done) => { 
+          , afterAll: (done) => {
                 fs.unlink('./e2e.log', done)
                 process.env.COVER = origCover
             }
@@ -814,7 +814,7 @@ module.exports =
               }
             , 'and using the teardown right after':
               { 'should not fail': (done) => { after.call(mockTestCtx, done) }
-              , 'should write to console that the server is terminated': 
+              , 'should write to console that the server is terminated':
                 () => msg.length.should.eql(2)
               }
             }
@@ -840,12 +840,12 @@ module.exports =
                 delete sut.teardown
             }
           , afterAll: (done) => { fs.unlink('./err.log', after.bind(mockTestCtx, done) ) }
-          , 'should collect errors to the log as well': 
+          , 'should collect errors to the log as well':
             () => require('fs').readFileSync('./err.log').toString().should.eql('ERR: oups\n')
           }
       })
     }
-  , 'when called with only svc name': 
+  , 'when called with only svc name':
     block(() => {
         const mockTestCtx = mockMockaCtx()
         const msg = []
@@ -883,7 +883,7 @@ module.exports =
         }
     })
   , '.initCtx(options)':
-    { 'when used with defualt cwd': 
+    { 'when used with defualt cwd':
       block(() => {
         let res
         return {
@@ -902,7 +902,7 @@ module.exports =
           () => Should(res).have.property('cwd')
         }
       })
-    , 'when used provide cwd': 
+    , 'when used provide cwd':
       block(() => {
           let res
           return {
