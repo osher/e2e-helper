@@ -11,7 +11,8 @@ While you can use it with ***any*** test library for node - since mocha is the m
 It can do so for BDD, TDD, and moch-ui-exports UIs.
 
 ## Badges
- - [![Build Status](https://secure.travis-ci.org/osher/e2e-helper.png?branch=master)](http://travis-ci.org/osher/e2e-helper) Tested on latests node versions of 6,7,8
+ - [![Build Status](https://secure.travis-ci.org/osher/e2e-helper.png?branch=master)](http://travis-ci.org/osher/e2e-helper) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fosher%2Fe2e-helper.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fosher%2Fe2e-helper?ref=badge_shield)
+Tested on latests node versions of 6,7,8
  - [![Coverage Status](https://coveralls.io/repos/github/osher/e2e-helper/badge.svg?branch=master)](https://coveralls.io/github/osher/e2e-helper?branch=master)
 
 # Features list:
@@ -187,3 +188,7 @@ I don't expect API changes for fixing any of these issues.
 
 # Lisence
 MIT, and that's it :)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fosher%2Fe2e-helper.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fosher%2Fe2e-helper?ref=badge_large)
