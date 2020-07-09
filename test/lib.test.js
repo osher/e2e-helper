@@ -56,14 +56,14 @@ module.exports =
                 { svc: 'test/fixture/svc'
                 , readyNotice: null
                 }
-              , m: 'options.readyNotice must be a string'
+              , m: 'options.readyNotice must be either a string or a function'
               }
             , 'options.readyNotice not a string':
               { o:
                 { svc: 'test/fixture/svc'
                 , readyNotice: -0.431
                 }
-              , m: 'options.readyNotice must be a string'
+              , m: 'options.readyNotice must be either a string or a function'
               }
             , 'options.args not an array':
               { o:
