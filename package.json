@@ -1,6 +1,6 @@
 {
   "name": "e2e-helper",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "description": "end-to-end test helper, with facilitators for mocha",
   "main": "lib",
   "repository": {
